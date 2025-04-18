@@ -1,7 +1,7 @@
 // Import required modules
-const express = require('express');
+const express = require('express');  
 const path = require('path');
-const dotenv  =  require('dotenv')
+const dotenv  =  require('dotenv') // load local file .env
 const session = require('express-session');
 const db = require('./config/db');
 const bodyParser = require('body-parser');
@@ -10,6 +10,7 @@ const authRoutes = require('./routes/authRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const bookRoutes = require("./routes/bookRoutes");
+const adminRoutes = require('./routes/adminRoutes');
 
 
 //load environment variables
@@ -18,17 +19,16 @@ dotenv.config();
 
 // Initialize Express app
 const app = express();
-const PORT = process.env.PORT || 3000;
-
+const PORT = process.env.PORT || 3000; // whenever you try to connect with .env
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-    secret: 'gyeltshenMk',
+    secret: 'Tshering',
     resave: false,
     saveUninitialized: true,
-    cookie: {
-        secure: false,
+    cookie: {  //cookies store your activities like footprint
+        secure: false, 
         maxAge: 60 * 60 * 1000 //session expries after 1 hour
     }
 }));
@@ -38,21 +38,17 @@ app.use(session({
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
-// Serve static files
+// Serve static files (css and ejs)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/components', express.static(path.join(__dirname, 'views/components')));
 
-
-
-
-// routes
+// routes (URLs you are going to refer)
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/', homeRoutes);
 app.use('/', profileRoutes);
 app.use("/", bookRoutes);
-
+app.use('/', adminRoutes);
 
 //for db connection
 app.get('/db-test', async (req, res) => {

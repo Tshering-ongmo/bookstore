@@ -2,23 +2,21 @@
     <link rel="stylesheet" href="/components/style.css">
 </head>
 <header>
-    <nav class="navbar">
-        <div class="logo">
-            <a href="/home">📚 BookStore</a>
-        </div>
-        
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/home-books">Books</a></li>
-            <li><a href="/auth/signup">Signup</a></li>
-            <li><a href="/auth/login">Login</a></li>
+    <nav>
+        <a href="/home">📚 BookStore</a>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/books">Books</a></li>
+            <li><a href="/favourites">My Favourites</a></li>
+            <li><a href="/new-arrivals">New Arrivals</a></li>
+            <li><a href="/profile">Profile</a></li>
         </ul>
         <form action="/search" method="GET">
             <input type="text" name="query" placeholder="Search books...">
             <button type="submit">Search</button>
         </form>
         <% if (user) { %>
-            <a href="/log out">Logout</a>
+            <a href="/logout">Logout</a>
         <% } else { %>
             <a href="/auth/login">Login</a>
         <% } %>
